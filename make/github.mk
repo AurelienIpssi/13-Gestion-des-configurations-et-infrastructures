@@ -1,4 +1,4 @@
-REPO_NAME :$(shell basename `git rev-parse --show-toplevel`)
+REPO_NAME :$(shell basename $(git rev-parse --show-toplevel))
 VISIBILITY ?= private
 .PHONY: gh.create
 gh.create:
