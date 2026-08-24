@@ -28,6 +28,5 @@ mkdir -p infra/modules/security_group
 
 
 for f in infra/modules/compute infra/modules/security_group; do
-    cd "$f"
-    touch "main.tf" "variables.tf" "versions.tf" "outputs.tf"
+  touch "$f/main.tf" "$f/variables.tf" "$f/versions.tf" "$f/outputs.tf"
 done
