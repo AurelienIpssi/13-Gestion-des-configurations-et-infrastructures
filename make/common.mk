@@ -8,5 +8,9 @@ SUCCESS_COLOR := \033[32;1m
 WARNING_COLOR := \033[33;1m
 RESET_COLOR := \033[m
 
+tf.init: ##dryrun terraform init
+	@echo "terraform init"
 help: ##shows this help
-	@grep -hE "^[a-zA-Z0-9_-]+:.*?##" $(MAKEFILE_LIST)
+	@echo -e "\n${INFO_COLOR}===MENU===${RESET_COLOR}\n"
+	@grep -hE "^[a-zA-Z0-9_.-]+:.*?##" $(MAKEFILE_LIST) | sort
+	@echo -e "\n${INFO_COLOR}===FIN MENU===${RESET_COLOR}\n"
