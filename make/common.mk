@@ -13,5 +13,5 @@ tf.init: ##dryrun terraform init
 help: ##shows this help
 	@echo -e "\n${INFO_COLOR}===MENU===${RESET_COLOR}\n"
 	@grep -hE "^[a-zA-Z0-9_.-]+:.*?##" $(MAKEFILE_LIST) | sort
-		awk 'BEGIN {FS = ":.*?##"}; {printf "${INFO_COLOR}%s - %s${RESET_COLOR}\n", $$1, $$2}'
+		awk 'BEGIN {FS = ":.*?##"}; {printf "${INFO_COLOR}%-20s${RESET_COLOR}\n", $$1, $$2}'
 	@echo -e "\n${INFO_COLOR}===FIN MENU===${RESET_COLOR}\n"
