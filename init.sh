@@ -22,6 +22,7 @@ mkdir -p infra/envs/dev
 cd infra/envs/dev
 touch "main.tf" "variables.tf" "versions.tf" "outputs.tf" "providers.tf" "dev.aut.tfvars"
 cd ../..
+mkdir -p infra/modules
 mkdir -p infra/modules/compute
 mkdir -p infra/modules/security_group
 
