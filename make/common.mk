@@ -3,4 +3,5 @@ SHELL := /usr/bin/bash
 .SHELLFLAGS := -euo pipefail -c
 
 help:
-	echo "Bonjour"
+	@grep -hE "^[] $$" $(MAKEFILE_LIST)
+
