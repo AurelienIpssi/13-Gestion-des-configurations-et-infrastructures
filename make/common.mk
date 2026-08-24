@@ -1,0 +1,4 @@
+.ONESHELL:
+
+help:
+	echo "Bonjour"
