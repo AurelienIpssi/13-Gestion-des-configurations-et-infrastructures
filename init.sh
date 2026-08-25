@@ -25,8 +25,8 @@ cd ../..
 mkdir -p infra/modules
 mkdir -p infra/modules/compute
 mkdir -p infra/modules/security_group
+mkdir -p infra/modules/network
 
-
-for f in infra/modules/compute infra/modules/security_group; do
+for f in infra/modules/compute infra/modules/security_group infra/modules/network; do
   touch "$f/main.tf" "$f/variables.tf" "$f/versions.tf" "$f/outputs.tf"
 done
