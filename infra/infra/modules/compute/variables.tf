@@ -1,11 +1,9 @@
 variable "username" {
 type        = string
 }
-
 variable "environment" {
 type        = string
 description = "dev, staging, production"
-
 validation {
     condition     = can(regex("^[a-z]+$", var.environment))
     error_message = "Environment must contain only lowercase letters."
@@ -34,4 +32,9 @@ type        = string
 }
 variable "public_key" {
 type        = string
+}
+
+variable "has_public_ip" {
+  type        = bool
+  default     = true
 }

@@ -1,13 +1,16 @@
-resource "aws_instance" "example" {
+locals{
+  prefix = "${var.username}-${var.environment}"
+}
+
+resource "aws_key_pair" "VMKP" {
+  key_name   = "var.public_key"
+  public_key = "${local.prefix}-key"
+}
+resource "aws_instance" "this" {
   ami           = "var.instance_ami"
   instance_type = "var.instance_type"
   subnet_id     = "var.subnet_id"
-  key_name     = "var.key_name"
-  vpc_security_group_ids = ["var.vpc_security_group_id"]
-
-}
-resource "aws_key_pair" "this_keypair" {
-  key_name   = "var.key_name"
-  public_key = "var.public_key"
-
+  key_name     = "aws_key_pair.VMKP.key_name"
+  vpc_security_group_ids ="var.sg_ids"
+  associate_public_ip_address = "var.has_public_ip"
 }
