@@ -1,4 +1,4 @@
-INFRA_DIR:=	infra/infra
+INFRA_DIR:=	infra/
 
 .PHONY:	tf.fmt.ci tf.fmt
 tf.fmt:

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-set -eu -o pipefail
+set -eu -o pipefail -c
 
 if [ ! -d ".git" ]; then
     git init
