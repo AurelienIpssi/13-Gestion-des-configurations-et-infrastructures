@@ -7,7 +7,12 @@ ERROR_COLOR := \033[31;1m
 SUCCESS_COLOR := \033[32;1m
 WARNING_COLOR := \033[33;1m
 RESET_COLOR := \033[m
-
+#==================#
+ENV ?= dev
+INFRA_DIR := $(CURDIR)/infra
+TP_ENV_DIR:= $(INFRA_DIR)/envs/$(ENV)
+ANSI_DIR := ansible
+#==================#
 tf.init: ##dryrun terraform init
 	@echo "terraform init"
 help: ##shows this help
