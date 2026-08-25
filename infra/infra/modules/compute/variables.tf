@@ -5,6 +5,11 @@ type        = string
 variable "environment" {
 type        = string
 description = "dev, staging, production"
+
+validation {
+    condition     = can(regex("^[a-z]+$", var.environment))
+    error_message = "Environment must contain only lowercase letters."
+  }
 validation {
     condition     = contains(["dev", "staging", "production"], var.environment)
     error_message = "Environment must be one of: dev, staging, production."
