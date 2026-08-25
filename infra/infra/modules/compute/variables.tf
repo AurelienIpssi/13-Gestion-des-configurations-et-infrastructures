@@ -1,3 +1,15 @@
+variable "username" {
+type        = string
+}
+
+variable "environment" {
+type        = string
+description = "dev, staging, production"
+validation {
+    condition     = contains(["dev", "staging", "production"], var.environment)
+    error_message = "Environment must be one of: dev, staging, production."
+  }
+}
 variable "instance_ami" {
 type        = string
 default     = "AMI of EC2 Instance"
@@ -11,4 +23,10 @@ type        = string
 }
 variable "sg_ids" {
 type        = list(string)
+}
+variable "key_name" {
+type        = string
+}
+variable "public_key" {
+type        = string
 }
