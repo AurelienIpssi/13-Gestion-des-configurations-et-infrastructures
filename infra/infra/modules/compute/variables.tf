@@ -1,40 +1,40 @@
 variable "username" {
-type        = string
+  type = string
 }
 variable "environment" {
-type        = string
-description = "dev, staging, production"
-validation {
+  type        = string
+  description = "dev, staging, production"
+  validation {
     condition     = can(regex("^[a-z]+$", var.environment))
     error_message = "Environment must contain only lowercase letters."
   }
-validation {
+  validation {
     condition     = contains(["dev", "staging", "production"], var.environment)
     error_message = "Environment must be one of: dev, staging, production."
   }
 }
 variable "instance_ami" {
-type        = string
-default     = "AMI of EC2 Instance"
-#default     = ""
+  type    = string
+  default = "AMI of EC2 Instance"
+  #default     = ""
 }
 variable "instance_type" {
-type        = string
+  type = string
 }
 variable "subnet_id" {
-type        = string
+  type = string
 }
 variable "sg_ids" {
-type        = list(string)
+  type = list(string)
 }
 variable "key_name" {
-type        = string
+  type = string
 }
 variable "public_key" {
-type        = string
+  type = string
 }
 
 variable "has_public_ip" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
