@@ -37,16 +37,14 @@ resource "aws_network_acl_rule" "http_ingress" {
 }
 
 resource "aws_network_acl_rule" "ssh_ingress" {
-  for_each = { for idx, cidr in var.ssh_ingress_cidr : idx => cidr }
-
   network_acl_id = aws_network_acl.this.id
-  rule_number    = 200 + tonumber(each.key)
+  rule_number    = 200
   egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
   from_port      = 22
   to_port        = 22
-  cidr_block     = each.value
+  cidr_block     = var.admin_ip
 }
 
 # NACLs are stateless: return traffic for outbound connections must be

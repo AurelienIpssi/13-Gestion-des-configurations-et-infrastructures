@@ -26,7 +26,8 @@ variable "http_ingress_cidr" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "ssh_ingress_cidr" {
-  type        = list(string)
-  description = "CIDR blocks allowed to reach SSH (22). Fail-safe default: no default value, must be set explicitly (e.g. your admin IP/32) rather than falling back to 0.0.0.0/0."
+variable "admin_ip" {
+  type        = string
+  sensitive   = true
+  description = "CIDR allowed to reach SSH (22), e.g. your admin IP/32. Fail-safe default: no default value, must be set explicitly rather than falling back to 0.0.0.0/0."
 }

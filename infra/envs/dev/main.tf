@@ -7,7 +7,7 @@ module "network" {
   subnet_cidr       = var.subnet_cidr
   availability_zone = var.availability_zone
   http_ingress_cidr = var.http_ingress_cidr
-  ssh_ingress_cidr  = var.ssh_ingress_cidr
+  admin_ip          = var.admin_ip
 }
 
 module "security_group" {
@@ -17,7 +17,7 @@ module "security_group" {
   environment       = var.environment
   vpc_id            = var.vpc_id
   http_ingress_cidr = var.http_ingress_cidr
-  ssh_ingress_cidr  = var.ssh_ingress_cidr
+  admin_ip          = var.admin_ip
 }
 
 module "compute" {
