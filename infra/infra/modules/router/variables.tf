@@ -1,0 +1,31 @@
+variable "username" {
+  type = string
+}
+
+variable "environment" {
+  type        = string
+  description = "dev, staging, production"
+  validation {
+    condition     = can(regex("^[a-z]+$", var.environment))
+    error_message = "Environment must contain only lowercase letters."
+  }
+  validation {
+    condition     = contains(["dev", "staging", "production"], var.environment)
+    error_message = "Environment must be one of: dev, staging, production."
+  }
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "VPC the route table belongs to"
+}
+
+variable "vpc_cidr_block" {
+  type        = string
+  description = "The VPC's own CIDR block, for the local route AWS creates implicitly on every route table"
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "Subnet to associate with this route table"
+}

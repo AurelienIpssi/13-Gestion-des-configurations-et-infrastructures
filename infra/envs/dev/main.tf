@@ -1,3 +1,7 @@
+data "aws_vpc" "this" {
+  id = var.vpc_id
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -19,6 +23,16 @@ module "subnet_1" {
   availability_zone = var.availability_zone
   http_ingress_cidr = var.http_ingress_cidr
   admin_ip          = var.admin_ip
+}
+
+module "router_1" {
+  source = "../../infra/modules/router"
+
+  username       = var.username
+  environment    = var.environment
+  vpc_id         = var.vpc_id
+  vpc_cidr_block = data.aws_vpc.this.cidr_block
+  subnet_id      = module.subnet_1.subnet_id
 }
 
 module "sg_1" {

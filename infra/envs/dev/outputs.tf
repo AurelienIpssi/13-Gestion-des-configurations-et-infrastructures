@@ -13,3 +13,11 @@ output "sg_id" {
 output "nacl_id" {
   value = module.subnet_1.nacl_id
 }
+
+output "subnet_cidr" {
+  value = module.subnet_1.subnet_cidr
+}
+
+output "route_table_id" {
+  value = module.router_1.route_table_id
+}
