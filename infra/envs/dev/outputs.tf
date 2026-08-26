@@ -1,5 +1,5 @@
 output "vm_public_ip" {
-  value = module.compute.vm_public_ip
+  value = module.vm.vm_public_ip
 }
 
 output "subnet_id" {

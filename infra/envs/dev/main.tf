@@ -20,7 +20,7 @@ module "sg_1" {
   admin_ip          = var.admin_ip
 }
 
-module "compute" {
+module "vm" {
   source = "../../infra/modules/compute"
 
   username      = var.username
