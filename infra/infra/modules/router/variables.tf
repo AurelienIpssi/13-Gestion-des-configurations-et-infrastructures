@@ -20,9 +20,19 @@ variable "vpc_id" {
   description = "VPC the route table belongs to"
 }
 
-variable "vpc_cidr_block" {
+variable "local_network_cidr" {
   type        = string
   description = "The VPC's own CIDR block, for the local route AWS creates implicitly on every route table"
+}
+
+variable "extra_network_cidr" {
+  type        = string
+  description = "CIDR to route out through the gateway, e.g. 0.0.0.0/0 for internet access"
+}
+
+variable "gateway_id" {
+  type        = string
+  description = "Gateway (e.g. internet gateway) the extra_network_cidr route points to"
 }
 
 variable "subnet_id" {

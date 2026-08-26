@@ -2,6 +2,13 @@ data "aws_vpc" "this" {
   id = var.vpc_id
 }
 
+data "aws_internet_gateway" "this" {
+  filter {
+    name   = "attachment.vpc-id"
+    values = [var.vpc_id]
+  }
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -28,11 +35,13 @@ module "subnet_1" {
 module "router_1" {
   source = "../../infra/modules/router"
 
-  username       = var.username
-  environment    = var.environment
-  vpc_id         = var.vpc_id
-  vpc_cidr_block = data.aws_vpc.this.cidr_block
-  subnet_id      = module.subnet_1.subnet_id
+  username           = var.username
+  environment        = var.environment
+  vpc_id             = var.vpc_id
+  local_network_cidr = data.aws_vpc.this.cidr_block
+  extra_network_cidr = "0.0.0.0/0"
+  gateway_id         = data.aws_internet_gateway.this.id
+  subnet_id          = module.subnet_1.subnet_id
 }
 
 module "sg_1" {

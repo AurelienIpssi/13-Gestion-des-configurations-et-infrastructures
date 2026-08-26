@@ -2,13 +2,6 @@ locals {
   prefix = "${var.username}-${var.environment}"
 }
 
-data "aws_internet_gateway" "this" {
-  filter {
-    name   = "attachment.vpc-id"
-    values = [var.vpc_id]
-  }
-}
-
 resource "aws_route_table" "this" {
   vpc_id = var.vpc_id
 
@@ -16,17 +9,17 @@ resource "aws_route_table" "this" {
   # it here matches what AWS will create, so Terraform doesn't try to remove
   # it on every apply.
   route {
-    cidr_block = var.vpc_cidr_block
+    cidr_block = var.local_network_cidr
     gateway_id = "local"
   }
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = data.aws_internet_gateway.this.id
+    cidr_block = var.extra_network_cidr
+    gateway_id = var.gateway_id
   }
 
   tags = {
-    Name = "${local.prefix}-rt"
+    Name = "${local.prefix}-route-table"
   }
 }
 
