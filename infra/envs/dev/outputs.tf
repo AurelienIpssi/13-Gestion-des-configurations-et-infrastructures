@@ -3,13 +3,13 @@ output "vm_public_ip" {
 }
 
 output "subnet_id" {
-  value = module.subnet.subnet_id
+  value = module.subnet_1.subnet_id
 }
 
 output "sg_id" {
-  value = module.security_group.sg_id
+  value = module.sg_1.sg_id
 }
 
 output "nacl_id" {
-  value = module.subnet.nacl_id
+  value = module.subnet_1.nacl_id
 }

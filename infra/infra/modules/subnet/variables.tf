@@ -29,7 +29,7 @@ variable "vpc_id" {
   description = "VPC in which the subnet is created"
 }
 
-variable "subnet_cidr" {
+variable "cidr" {
   type        = string
   description = "CIDR block for the subnet"
 }

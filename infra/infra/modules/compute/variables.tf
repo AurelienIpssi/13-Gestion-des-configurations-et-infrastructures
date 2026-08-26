@@ -27,10 +27,8 @@ variable "sg_ids" {
   type = list(string)
 }
 variable "key_name" {
-  type = string
-}
-variable "public_key" {
-  type = string
+  type        = string
+  description = "Name of an existing EC2 key pair (e.g. AWS Academy's pre-provisioned \"vockey\")"
 }
 
 variable "has_public_ip" {

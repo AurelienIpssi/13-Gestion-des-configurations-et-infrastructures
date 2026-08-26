@@ -55,12 +55,7 @@ variable "instance_type" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the EC2 key pair to create"
-}
-
-variable "public_key" {
-  type        = string
-  description = "SSH public key material for the EC2 key pair"
+  description = "Name of an existing EC2 key pair (e.g. AWS Academy's pre-provisioned \"vockey\")"
 }
 
 variable "has_public_ip" {
