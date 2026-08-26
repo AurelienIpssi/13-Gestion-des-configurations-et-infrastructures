@@ -38,3 +38,14 @@ variable "availability_zone" {
   type        = string
   description = "Availability zone for the subnet"
 }
+
+variable "http_ingress_cidr" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach HTTP (80) at the Network ACL (subnet) level"
+  default     = ["0.0.0.0/0"]
+}
+
+variable "ssh_ingress_cidr" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach SSH (22) at the Network ACL (subnet) level. Fail-safe default: no default value, must be set explicitly."
+}

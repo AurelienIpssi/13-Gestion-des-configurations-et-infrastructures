@@ -20,56 +20,13 @@ variable "vpc_id" {
   description = "VPC in which the security group is created"
 }
 
-variable "ingress_rules" {
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  description = "List of ingress rules to apply to the security group"
-  default = [
-    {
-      description = "SSH"
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    },
-    {
-      description = "HTTP"
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    },
-    {
-      description = "HTTPS"
-      from_port   = 443
-      to_port     = 443
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  ]
+variable "http_ingress_cidr" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach HTTP (80). Public traffic, safe to leave open."
+  default     = ["0.0.0.0/0"]
 }
 
-variable "egress_rules" {
-  type = list(object({
-    description = string
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  description = "List of egress rules to apply to the security group"
-  default = [
-    {
-      description = "Allow all outbound traffic"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  ]
+variable "ssh_ingress_cidr" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach SSH (22). Fail-safe default: no default value, must be set explicitly (e.g. your admin IP/32) rather than falling back to 0.0.0.0/0."
 }

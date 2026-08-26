@@ -30,6 +30,17 @@ variable "availability_zone" {
   description = "Availability zone for the subnet"
 }
 
+variable "http_ingress_cidr" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach HTTP (80)"
+  default     = ["0.0.0.0/0"]
+}
+
+variable "ssh_ingress_cidr" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach SSH (22). Fail-safe default: no default value, must be set explicitly (e.g. your admin IP/32)."
+}
+
 variable "instance_ami" {
   type        = string
   description = "AMI ID for the EC2 instance"

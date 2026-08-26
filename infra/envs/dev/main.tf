@@ -6,14 +6,18 @@ module "network" {
   vpc_id            = var.vpc_id
   subnet_cidr       = var.subnet_cidr
   availability_zone = var.availability_zone
+  http_ingress_cidr = var.http_ingress_cidr
+  ssh_ingress_cidr  = var.ssh_ingress_cidr
 }
 
 module "security_group" {
   source = "../../infra/modules/security_group"
 
-  username    = var.username
-  environment = var.environment
-  vpc_id      = var.vpc_id
+  username          = var.username
+  environment       = var.environment
+  vpc_id            = var.vpc_id
+  http_ingress_cidr = var.http_ingress_cidr
+  ssh_ingress_cidr  = var.ssh_ingress_cidr
 }
 
 module "compute" {

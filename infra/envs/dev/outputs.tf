@@ -9,3 +9,7 @@ output "subnet_id" {
 output "sg_id" {
   value = module.security_group.sg_id
 }
+
+output "nacl_id" {
+  value = module.network.nacl_id
+}
