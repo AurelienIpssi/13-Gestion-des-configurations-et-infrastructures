@@ -14,9 +14,8 @@ variable "environment" {
   }
 }
 variable "instance_ami" {
-  type    = string
-  default = "AMI of EC2 Instance"
-  #default     = ""
+  type        = string
+  description = "AMI ID for the EC2 instance"
 }
 variable "instance_type" {
   type = string

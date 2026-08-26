@@ -3,20 +3,22 @@ locals {
 }
 
 resource "aws_key_pair" "VMKP" {
-  key_name   = "var.public_key"
-  public_key = "${local.prefix}-key"
+  key_name   = var.key_name
+  public_key = var.public_key
 }
+
 resource "aws_instance" "this" {
-  ami = "var.instance_ami"
+  ami           = var.instance_ami
+  instance_type = var.instance_type
+  subnet_id     = var.subnet_id
 
-  instance_type = "var.instance_type"
+  key_name = aws_key_pair.VMKP.key_name
 
-  subnet_id = "var.subnet_id"
+  vpc_security_group_ids = var.sg_ids
 
-  key_name = "aws_key_pair.VMKP.key_name"
+  associate_public_ip_address = var.has_public_ip
 
-  vpc_security_group_ids = "var.sg_ids"
-
-  associate_public_ip_address = "var.has_public_ip"
-
+  tags = {
+    Name = "${local.prefix}-vm"
+  }
 }
