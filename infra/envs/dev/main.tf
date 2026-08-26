@@ -1,3 +1,14 @@
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
 module "subnet_1" {
   source = "../../infra/modules/subnet"
 
@@ -25,7 +36,7 @@ module "vm" {
 
   username      = var.username
   environment   = var.environment
-  instance_ami  = var.instance_ami
+  instance_ami  = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
   subnet_id     = module.subnet_1.subnet_id
   sg_ids        = [module.sg_1.sg_id]

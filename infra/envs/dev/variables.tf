@@ -42,11 +42,6 @@ variable "admin_ip" {
   description = "CIDR allowed to reach SSH (22), e.g. your admin IP/32. Fail-safe default: no default value, must be set explicitly."
 }
 
-variable "instance_ami" {
-  type        = string
-  description = "AMI ID for the EC2 instance"
-}
-
 variable "instance_type" {
   type        = string
   description = "EC2 instance type"
