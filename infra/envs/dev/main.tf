@@ -1,5 +1,5 @@
-module "network" {
-  source = "../../infra/modules/network"
+module "subnet" {
+  source = "../../infra/modules/subnet"
 
   username          = var.username
   environment       = var.environment
@@ -27,7 +27,7 @@ module "compute" {
   environment   = var.environment
   instance_ami  = var.instance_ami
   instance_type = var.instance_type
-  subnet_id     = module.network.subnet_id
+  subnet_id     = module.subnet.subnet_id
   sg_ids        = [module.security_group.sg_id]
   key_name      = var.key_name
   public_key    = var.public_key
