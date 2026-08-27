@@ -48,6 +48,18 @@ resource "aws_network_acl_rule" "ssh_ingress" {
   cidr_block     = var.admin_ip
 }
 
+resource "aws_network_acl_rule" "icmp_ingress" {
+  # checkov:skip=CKV_AWS_352:false positive - ICMP rules use icmp_type/icmp_code, not ports; already narrowed to Echo Request (type 8, code 0) only
+  network_acl_id = aws_network_acl.this.id
+  rule_number    = 250
+  egress         = false
+  protocol       = "icmp"
+  rule_action    = "allow"
+  icmp_type      = 8 # Echo Request only
+  icmp_code      = 0
+  cidr_block     = var.admin_ip
+}
+
 # NACLs are stateless: return traffic for outbound connections must be
 # allowed in explicitly via the ephemeral port range.
 # trivy:ignore:AWS-0105 deliberate: stateless return traffic for outbound connections can come back on any ephemeral port from any address

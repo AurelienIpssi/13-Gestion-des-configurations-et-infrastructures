@@ -44,6 +44,19 @@ resource "aws_vpc_security_group_ingress_rule" "ssh" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "icmp" {
+  security_group_id = aws_security_group.this.id
+  description       = "ICMP ingress (ping)"
+  ip_protocol       = "icmp"
+  from_port         = -1
+  to_port           = -1
+  cidr_ipv4         = var.admin_ip
+
+  tags = {
+    Name = "${local.prefix}-sg-in-rule-allow-admin-icmp"
+  }
+}
+
 # AWS auto-creates an allow-all egress rule at the API level, but Terraform's
 # aws_security_group removes it when no egress rule is declared, so it is
 # spelled out explicitly here rather than relied upon implicitly.
