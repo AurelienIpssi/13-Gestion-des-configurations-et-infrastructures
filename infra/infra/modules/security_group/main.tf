@@ -2,9 +2,9 @@ locals {
   prefix = "${var.username}-${var.environment}"
 }
 
-# Ensure that Security Groups are attached to another resource
-# checkov:skip=CKV2_AWS_5 attached to the compute module's instance
 resource "aws_security_group" "this" {
+  # Ensure that Security Groups are attached to another resource
+  # checkov:skip=CKV2_AWS_5:attached to the compute module's instance via sg_ids
   name        = "${local.prefix}-sg"
   description = "Security Group to allow http and ssh for only for admin"
   vpc_id      = var.vpc_id
@@ -20,7 +20,7 @@ resource "aws_vpc_security_group_ingress_rule" "http" {
   security_group_id = aws_security_group.this.id
   description       = "HTTP ingress"
   # Ensure no security groups allow ingress from 0.0.0.0:0 to port 80
-  # checkov:skip=CKV_AWS_260 intentionally public HTTP
+  # checkov:skip=CKV_AWS_260:intentionally public HTTP
   from_port   = 80
   to_port     = 80
   ip_protocol = "tcp"

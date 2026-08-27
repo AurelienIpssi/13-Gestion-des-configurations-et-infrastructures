@@ -35,3 +35,9 @@ variable "has_public_ip" {
   type    = bool
   default = false # fail-safe default
 }
+
+variable "iam_instance_profile_name" {
+  type        = string
+  default     = "LabInstanceProfile"
+  description = "Existing IAM instance profile to attach (AWS Academy pre-provisions this one)"
+}

@@ -52,6 +52,7 @@ resource "aws_network_acl_rule" "ssh_ingress" {
 # allowed in explicitly via the ephemeral port range.
 # trivy:ignore:AWS-0105 deliberate: stateless return traffic for outbound connections can come back on any ephemeral port from any address
 resource "aws_network_acl_rule" "ephemeral_ingress" {
+  # checkov:skip=CKV_AWS_231:ephemeral range for stateless return traffic, unavoidably covers 3389 (unused, no RDP on this instance)
   network_acl_id = aws_network_acl.this.id
   rule_number    = 300
   egress         = false

@@ -7,13 +7,20 @@ resource "aws_key_pair" "vm_kp" {
   key_name   = "${local.prefix}-key"
 }
 
-# checkov:skip=CKV2_AWS_41 no IAM role attached to this instance
+# AWS Academy pre-provisions this instance profile; students can't create
+# their own IAM roles, so it is reused instead of a dedicated role.
+data "aws_iam_instance_profile" "lab" {
+  name = var.iam_instance_profile_name
+}
+
 resource "aws_instance" "this" {
   ami           = var.instance_ami
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
 
   key_name = aws_key_pair.vm_kp.key_name
+
+  iam_instance_profile = data.aws_iam_instance_profile.lab.name
 
   vpc_security_group_ids = var.sg_ids
 
