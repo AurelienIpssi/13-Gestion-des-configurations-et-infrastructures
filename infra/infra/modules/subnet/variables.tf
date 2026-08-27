@@ -39,6 +39,12 @@ variable "availability_zone" {
   description = "Availability zone for the subnet"
 }
 
+variable "map_public_ip_on_launch" {
+  type        = bool
+  default     = false # fail-safe default
+  description = "Whether instances launched in this subnet get a public IP by default"
+}
+
 variable "http_ingress_cidr" {
   type        = list(string)
   description = "CIDR blocks allowed to reach HTTP (80) at the Network ACL (subnet) level"

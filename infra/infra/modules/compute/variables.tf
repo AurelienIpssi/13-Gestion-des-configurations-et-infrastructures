@@ -26,12 +26,12 @@ variable "subnet_id" {
 variable "sg_ids" {
   type = list(string)
 }
-variable "key_name" {
+variable "public_key" {
   type        = string
-  description = "Name of an existing EC2 key pair (e.g. AWS Academy's pre-provisioned \"vockey\")"
+  description = "SSH public key material for the EC2 key pair"
 }
 
 variable "has_public_ip" {
   type    = bool
-  default = true
+  default = false # fail-safe default
 }

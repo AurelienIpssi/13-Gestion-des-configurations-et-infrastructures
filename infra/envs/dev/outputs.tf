@@ -3,7 +3,7 @@ output "vm_public_ip" {
 }
 
 output "subnet_id" {
-  value = module.subnet_1.subnet_id
+  value = module.subnet_1.sb_id
 }
 
 output "sg_id" {
@@ -15,7 +15,7 @@ output "nacl_id" {
 }
 
 output "subnet_cidr" {
-  value = module.subnet_1.subnet_cidr
+  value = module.subnet_1.sb_cidr
 }
 
 output "route_table_id" {

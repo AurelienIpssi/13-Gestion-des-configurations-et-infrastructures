@@ -41,7 +41,7 @@ module "router_1" {
   local_network_cidr = data.aws_vpc.this.cidr_block
   extra_network_cidr = "0.0.0.0/0"
   gateway_id         = data.aws_internet_gateway.this.id
-  subnet_id          = module.subnet_1.subnet_id
+  subnet_id          = module.subnet_1.sb_id
 }
 
 module "sg_1" {
@@ -61,8 +61,8 @@ module "vm" {
   environment   = var.environment
   instance_ami  = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-  subnet_id     = module.subnet_1.subnet_id
+  subnet_id     = module.subnet_1.sb_id
   sg_ids        = [module.sg_1.sg_id]
-  key_name      = var.key_name
+  public_key    = file(pathexpand("~/.ssh/terraform-ipssi.pub"))
   has_public_ip = var.has_public_ip
 }

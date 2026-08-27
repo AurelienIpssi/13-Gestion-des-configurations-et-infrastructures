@@ -9,3 +9,7 @@ output "sg_name" {
 output "sg_arn" {
   value = aws_security_group.this.arn
 }
+
+output "sg_vpc_id" {
+  value = aws_security_group.this.vpc_id
+}

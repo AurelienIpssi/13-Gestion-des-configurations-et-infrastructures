@@ -48,13 +48,8 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "key_name" {
-  type        = string
-  description = "Name of an existing EC2 key pair (e.g. AWS Academy's pre-provisioned \"vockey\")"
-}
-
 variable "has_public_ip" {
   type        = bool
   description = "Whether the instance gets a public IP"
-  default     = true
+  default     = false # fail-safe default
 }
