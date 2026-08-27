@@ -14,6 +14,7 @@ data "aws_iam_instance_profile" "lab" {
 }
 
 resource "aws_instance" "this" {
+  # checkov:skip=CKV_AWS_88:public IP needed to reach the instance directly for this exercise; opt-in via has_public_ip (default false)
   ami           = var.instance_ami
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
