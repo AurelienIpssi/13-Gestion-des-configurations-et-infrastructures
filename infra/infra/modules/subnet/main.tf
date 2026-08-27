@@ -50,6 +50,7 @@ resource "aws_network_acl_rule" "ssh_ingress" {
 
 # NACLs are stateless: return traffic for outbound connections must be
 # allowed in explicitly via the ephemeral port range.
+# trivy:ignore:AWS-0105 deliberate: stateless return traffic for outbound connections can come back on any ephemeral port from any address
 resource "aws_network_acl_rule" "ephemeral_ingress" {
   network_acl_id = aws_network_acl.this.id
   rule_number    = 300
@@ -61,6 +62,7 @@ resource "aws_network_acl_rule" "ephemeral_ingress" {
   cidr_block     = "0.0.0.0/0"
 }
 
+# trivy:ignore:AWS-0102 deliberate: outbound traffic is not restricted, only inbound is (fail-safe default applies to ingress)
 resource "aws_network_acl_rule" "all_egress" {
   network_acl_id = aws_network_acl.this.id
   rule_number    = 100

@@ -47,6 +47,7 @@ resource "aws_vpc_security_group_ingress_rule" "ssh" {
 # AWS auto-creates an allow-all egress rule at the API level, but Terraform's
 # aws_security_group removes it when no egress rule is declared, so it is
 # spelled out explicitly here rather than relied upon implicitly.
+# trivy:ignore:AWS-0104 deliberate: outbound traffic is not restricted, only inbound is (fail-safe default applies to ingress)
 resource "aws_vpc_security_group_egress_rule" "all" {
   security_group_id = aws_security_group.this.id
   description       = "Allow all outbound traffic"
