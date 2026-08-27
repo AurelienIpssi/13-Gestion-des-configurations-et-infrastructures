@@ -6,3 +6,6 @@
 *.tfstate
 tfplan
 *tfplan
+.ansible
+inventory.ini
+.ansible.cfg
