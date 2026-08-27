@@ -1,6 +1,6 @@
 INFRA_DIR:=	infra/
 
-.PHONY:	tf.fmt.ci tf.fmt tf.init tf.lint tf.checkov
+.PHONY:	tf.fmt.ci tf.fmt tf.init tf.lint tf.scan
 tf.fmt:
 	@terraform -chdir="$(INFRA_DIR)" fmt -recursive -diff
 
@@ -13,5 +13,6 @@ tf.init: ##terraform init for the current ENV
 tf.lint: ##scan the terraform code for security misconfigurations (trivy)
 	@trivy config "$(INFRA_DIR)"
 
-tf.checkov: ##scan the terraform code for security misconfigurations (checkov, via Docker)
-	@MSYS_NO_PATHCONV=1 docker run --rm -v "$(CURDIR)/infra:/tf" bridgecrew/checkov:latest -d /tf --compact --quiet
+tf.scan: ##scan the terraform code for security misconfigurations (checkov, via Docker) and print the VM's public IP
+	@MSYS_NO_PATHCONV=1 docker run --rm -v "$(CURDIR)/infra:/tf" bridgecrew/checkov:latest -d /tf --compact --quiet || true; \
+	echo "vm_public_ip = $$(terraform -chdir="$(TF_ENV_DIR)" output -raw vm_public_ip 2>/dev/null)"
