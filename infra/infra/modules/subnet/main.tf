@@ -8,9 +8,9 @@ resource "aws_subnet" "this" {
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = var.map_public_ip_on_launch
 
-  tags = {
+  tags = merge(var.tags, {
     Name = "${local.prefix}-subnet"
-  }
+  })
 }
 
 # Defense in depth: a second, stateless firewall layer at the subnet boundary,
@@ -19,9 +19,9 @@ resource "aws_network_acl" "this" {
   vpc_id     = var.vpc_id
   subnet_ids = [aws_subnet.this.id]
 
-  tags = {
+  tags = merge(var.tags, {
     Name = "${local.prefix}-nacl"
-  }
+  })
 }
 
 resource "aws_network_acl_rule" "http_ingress" {

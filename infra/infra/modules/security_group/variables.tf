@@ -20,14 +20,20 @@ variable "vpc_id" {
   description = "VPC in which the security group is created"
 }
 
-variable "http_ingress_cidr" {
-  type        = list(string)
-  description = "CIDR blocks allowed to reach HTTP (80). Public traffic, safe to leave open."
-  default     = ["0.0.0.0/0"]
+variable "ingress_rules" {
+  type = list(object({
+    name        = string
+    description = string
+    protocol    = string # "tcp", "udp", "icmp"
+    from_port   = number # for icmp: type (-1 = all)
+    to_port     = number # for icmp: code (-1 = all)
+    cidr_blocks = list(string)
+  }))
+  description = "Ingress rules to allow on the security group, one aws_vpc_security_group_ingress_rule per (rule, cidr) pair"
 }
 
-variable "admin_ip" {
-  type        = string
-  sensitive   = true
-  description = "CIDR allowed to reach SSH (22), e.g. your admin IP/32. Fail-safe default: no default value, must be set explicitly rather than falling back to 0.0.0.0/0."
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Common tags merged into every resource's tags, e.g. { Project = \"...\", Owner = \"...\" }"
 }

@@ -56,3 +56,9 @@ variable "admin_ip" {
   sensitive   = true
   description = "CIDR allowed to reach SSH (22) at the Network ACL (subnet) level, e.g. your admin IP/32. Fail-safe default: no default value, must be set explicitly."
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Common tags merged into every resource's tags, e.g. { Project = \"...\", Owner = \"...\" }"
+}

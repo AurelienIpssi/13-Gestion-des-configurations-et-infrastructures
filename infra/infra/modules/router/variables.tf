@@ -39,3 +39,9 @@ variable "subnet_id" {
   type        = string
   description = "Subnet to associate with this route table"
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Common tags merged into every resource's tags, e.g. { Project = \"...\", Owner = \"...\" }"
+}

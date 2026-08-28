@@ -41,3 +41,9 @@ variable "iam_instance_profile_name" {
   default     = "LabInstanceProfile"
   description = "Existing IAM instance profile to attach (AWS Academy pre-provisions this one)"
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Common tags merged into every resource's tags, e.g. { Project = \"...\", Owner = \"...\" }"
+}

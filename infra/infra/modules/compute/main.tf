@@ -38,7 +38,7 @@ resource "aws_instance" "this" {
     encrypted = true
   }
 
-  tags = {
+  tags = merge(var.tags, {
     Name = "${local.prefix}-vm"
-  }
+  })
 }

@@ -53,3 +53,9 @@ variable "has_public_ip" {
   description = "Whether the instance gets a public IP"
   default     = false # fail-safe default
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Common tags merged into every resource's tags, e.g. { Project = \"...\", Owner = \"...\" }"
+}

@@ -30,6 +30,7 @@ module "subnet_1" {
   availability_zone = var.availability_zone
   http_ingress_cidr = var.http_ingress_cidr
   admin_ip          = var.admin_ip
+  tags              = var.tags
 }
 
 module "router_1" {
@@ -42,16 +43,43 @@ module "router_1" {
   extra_network_cidr = "0.0.0.0/0"
   gateway_id         = data.aws_internet_gateway.this.id
   subnet_id          = module.subnet_1.sb_id
+  tags               = var.tags
 }
 
 module "sg_1" {
   source = "../../infra/modules/security_group"
 
-  username          = var.username
-  environment       = var.environment
-  vpc_id            = var.vpc_id
-  http_ingress_cidr = var.http_ingress_cidr
-  admin_ip          = var.admin_ip
+  username    = var.username
+  environment = var.environment
+  vpc_id      = var.vpc_id
+  tags        = var.tags
+
+  ingress_rules = [
+    {
+      name        = "http"
+      description = "HTTP ingress"
+      protocol    = "tcp"
+      from_port   = 80
+      to_port     = 80
+      cidr_blocks = var.http_ingress_cidr
+    },
+    {
+      name        = "ssh"
+      description = "SSH ingress"
+      protocol    = "tcp"
+      from_port   = 22
+      to_port     = 22
+      cidr_blocks = [var.admin_ip]
+    },
+    {
+      name        = "icmp"
+      description = "ICMP ingress (ping)"
+      protocol    = "icmp"
+      from_port   = -1
+      to_port     = -1
+      cidr_blocks = [var.admin_ip]
+    },
+  ]
 }
 
 module "vm" {
@@ -65,4 +93,5 @@ module "vm" {
   sg_ids        = [module.sg_1.sg_id]
   public_key    = file(pathexpand("~/.ssh/terraform-ipssi.pub"))
   has_public_ip = var.has_public_ip
+  tags          = var.tags
 }

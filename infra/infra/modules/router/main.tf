@@ -18,9 +18,9 @@ resource "aws_route_table" "this" {
     gateway_id = var.gateway_id
   }
 
-  tags = {
+  tags = merge(var.tags, {
     Name = "${local.prefix}-route-table"
-  }
+  })
 }
 
 resource "aws_route_table_association" "this" {
