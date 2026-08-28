@@ -3,3 +3,4 @@ include make/git.mk
 include make/github.mk
 include make/tf.mk
 include make/aws.mk
+include make/ansible.mk

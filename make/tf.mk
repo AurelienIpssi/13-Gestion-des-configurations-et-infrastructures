@@ -1,6 +1,6 @@
 INFRA_DIR:=	infra/
 
-.PHONY:	tf.fmt.ci tf.fmt tf.init tf.lint tf.scan
+.PHONY:	tf.fmt.ci tf.fmt tf.init tf.lint tf.scan tf.apply
 tf.fmt:
 	@terraform -chdir="$(INFRA_DIR)" fmt -recursive -diff
 
@@ -9,6 +9,9 @@ tf.fmt.ci:
 
 tf.init: ##terraform init for the current ENV
 	@terraform -chdir="$(TF_ENV_DIR)" init -lock=false -input=false -upgrade
+
+tf.apply: ##terraform apply for the current ENV (auto-approve)
+	@terraform -chdir="$(TF_ENV_DIR)" apply -lock=false -input=false -auto-approve
 
 tf.lint: ##scan the terraform code for security misconfigurations (trivy)
 	@trivy config "$(INFRA_DIR)"
